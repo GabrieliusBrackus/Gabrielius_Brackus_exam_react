@@ -1,6 +1,7 @@
 import React from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import { Link, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function SingleItem(props) {
@@ -31,12 +32,14 @@ export default function SingleItem(props) {
         <Toaster />
       </div>
       <div className="flex flex-col items-center">
-        <img
-          src={item.imageUrl}
-          alt={item.shopName}
-          className="w-full h-auto object-contain"
-          style={{ maxHeight: "150px" }}
-        />
+        <Link key={item.id} to={`/shop/${item.id}`}>
+          <img
+            src={item.imageUrl}
+            alt={item.shopName}
+            className="w-full h-auto object-contain"
+            style={{ maxHeight: "150px" }}
+          />
+        </Link>
         <p className="text-xl font-semibold mt-2">{item.shopName}</p>
 
         <div className="flex justify-between w-full">
