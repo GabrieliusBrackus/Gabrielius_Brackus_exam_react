@@ -37,7 +37,7 @@ export default function ShopPage() {
   }, [authContext.user.uid]);
 
   return (
-    <div className="mx-auto max-w-screen-xl border border-gray-300 rounded p-6">
+    <div className="mx-auto max-w-screen-xl border border-gray-300 rounded p-6 mb-20">
       <h2 className="text-3xl font-bold mb-8">ShopPage</h2>
       {loading ? (
         <p className="text-xl text-gray-500">Loading...</p>
@@ -46,7 +46,11 @@ export default function ShopPage() {
       ) : (
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {shopItems.map((item) => (
-            <SingleItem key={item.id} item={item} />
+            <SingleItem
+              key={item.id}
+              item={item}
+              currentUserUid={authContext.user.uid}
+            />
           ))}
         </ul>
       )}

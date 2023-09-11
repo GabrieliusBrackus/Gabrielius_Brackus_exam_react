@@ -52,8 +52,8 @@ export default function SinglePost() {
         <img
           src={post.imageUrl}
           alt={post.shopName}
-          className="mb-6 rounded-lg shadow-md"
-          style={{ maxHeight: "400px" }}
+          className="mb-6 rounded-lg shadow-md mx-auto"
+          style={{ maxHeight: "400px", maxWidth: "100%" }}
         />
         <div className="flex justify-between items-center">
           <div className="text-2xl font-semibold">
@@ -76,7 +76,7 @@ export default function SinglePost() {
       </div>
       <div className="max-w-6xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-md z-10 mb-20">
         <CommentForm postId={itemId} onAddComment={handleAddComment} />
-        <CommentList postId={itemId} />
+        <CommentList postId={itemId} comments={comments} />
       </div>
     </div>
   );

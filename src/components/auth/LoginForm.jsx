@@ -34,7 +34,7 @@ export default function LoginForm() {
 
         toast.success("Login successful, welcome:" + email);
 
-        navigate("/", { replace: true });
+        navigate("/shops", { replace: true });
       } catch (error) {
         toast.error("Login failed, check email or password");
         const errorCode = error.code;
@@ -45,14 +45,16 @@ export default function LoginForm() {
   });
 
   return (
-    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 text-white">
+      <div>
+        <Toaster />
+      </div>
       <h1 className="text-2xl mb-4">Login</h1>
       <form onSubmit={formik.handleSubmit} className="mb-4">
-        <Toaster />
         <div className="mb-4">
           <label
             htmlFor="email"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-white-700 text-sm font-bold mb-2"
           >
             Email:
           </label>
@@ -74,7 +76,7 @@ export default function LoginForm() {
         <div className="mb-4">
           <label
             htmlFor="password"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-white-700 text-sm font-bold mb-2"
           >
             Password:
           </label>

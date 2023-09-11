@@ -6,7 +6,11 @@ export default {
       center: true,
       padding: "1rem",
     },
-    extend: {},
+    extend: {
+      spacing: {
+        100: "25rem",
+      },
+    },
   },
   plugins: [],
 };

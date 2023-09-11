@@ -31,7 +31,7 @@ export default function SingleItem(props) {
       <div>
         <Toaster />
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center relative">
         <Link key={item.id} to={`/shop/${item.id}`}>
           <img
             src={item.imageUrl}
@@ -40,6 +40,11 @@ export default function SingleItem(props) {
             style={{ maxHeight: "150px" }}
           />
         </Link>
+        {isOnSale && (
+          <div className="bg-red-500 text-white font-bold py-1 px-2 rounded-full shadow-md text-xs absolute top-2 right-2">
+            ON SALE!
+          </div>
+        )}
         <p className="text-xl font-semibold mt-2">{item.shopName}</p>
 
         <div className="flex justify-between w-full">

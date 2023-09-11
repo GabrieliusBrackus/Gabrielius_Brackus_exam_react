@@ -1,5 +1,11 @@
-import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 
 export default function CommentList({ postId }) {
@@ -9,9 +15,16 @@ export default function CommentList({ postId }) {
   useEffect(() => {
     const fetchComments = async () => {
       try {
+        setLoading(true);
+
         const commentsCollection = collection(db, "shops", postId, "comments");
-        const querySnapshot = await getDocs(commentsCollection);
+        const commentsQuery = query(
+          commentsCollection,
+          orderBy("timestamp", "asc")
+        );
+        const querySnapshot = await getDocs(commentsQuery);
         const commentData = querySnapshot.docs.map((doc) => doc.data());
+
         setComments(commentData);
         setLoading(false);
       } catch (error) {
@@ -20,6 +33,16 @@ export default function CommentList({ postId }) {
     };
 
     fetchComments();
+  }, [postId]);
+
+  useEffect(() => {
+    const commentsCollection = collection(db, "shops", postId, "comments");
+    const unsubscribe = onSnapshot(commentsCollection, (snapshot) => {
+      const newComments = snapshot.docs.map((doc) => doc.data());
+      setComments(newComments);
+    });
+
+    return () => unsubscribe();
   }, [postId]);
 
   return (

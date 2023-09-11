@@ -9,11 +9,10 @@ import { useAuth } from "../../store/AuthProvider";
 export default function ShopForm() {
   const authContext = useAuth();
   const user = authContext.user;
-
   const saveDataToFirebase = async (data) => {
     try {
       const shopsCollection = collection(db, "shops");
-      await addDoc(shopsCollection, { ...data, email: user.email });
+      await addDoc(shopsCollection, { ...data, userUid: user.uid });
       formik.resetForm();
       toast.success("Shop data saved successfully.");
     } catch (error) {
@@ -28,6 +27,8 @@ export default function ShopForm() {
     startYear: "",
     description: "",
     imageUrl: "",
+    price: 0,
+    saleOnSale: false,
   };
 
   const validationSchema = Yup.object({
@@ -45,6 +46,10 @@ export default function ShopForm() {
       .min(6, "Description must be at least 6 characters")
       .required("Description is required"),
     imageUrl: Yup.string().min(5, "Image URL must be at least 5 characters"),
+    price: Yup.number()
+      .min(0, "Price cannot be negative")
+      .required("Price is required"),
+    saleOnSale: Yup.boolean(),
   });
 
   const formik = useFormik({
@@ -58,11 +63,10 @@ export default function ShopForm() {
   });
 
   return (
-    <div className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 text-white">
+    <div className="mt-16 bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-8 text-white">
       <div>
         <Toaster />
       </div>
-      <h1 className="text-2xl mb-4">Add a New Shop</h1>
       <form onSubmit={formik.handleSubmit} className="mb-4">
         <div className="mb-4">
           <label
@@ -178,6 +182,53 @@ export default function ShopForm() {
           {formik.errors.imageUrl && formik.touched.imageUrl && (
             <p className="text-red-500 text-xs italic">
               {formik.errors.imageUrl}
+            </p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="price"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
+            Price:
+          </label>
+          <input
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.price}
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="number"
+            id="price"
+            name="price"
+            placeholder="Price"
+          />
+          {formik.errors.price && formik.touched.price && (
+            <p className="text-red-500 text-xs italic">{formik.errors.price}</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="saleOnSale"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
+            On Sale ?:
+          </label>
+          <select
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.saleOnSale}
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="saleOnSale"
+            name="saleOnSale"
+          >
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
+          </select>
+          {formik.errors.saleOnSale && formik.touched.saleOnSale && (
+            <p className="text-red-500 text-xs italic">
+              {formik.errors.saleOnSale}
             </p>
           )}
         </div>

@@ -37,7 +37,7 @@ export default function RegistrationForm() {
 
         toast.success("Registration successful, welcome:" + email);
 
-        navigate("/shops", { replace: true });
+        navigate("/login", { replace: true });
       } catch (error) {
         toast.error("Registration failed, please try again");
         const errorCode = error.code;
