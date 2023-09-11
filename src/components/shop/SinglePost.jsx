@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import CommentForm from "./comments/CommentForm";
 
 export default function SinglePost() {
   const { itemId } = useParams();
   const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
 
+  const handleAddComment = (comment) => {
+    setComments([...comments, comment]);
+  };
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -34,7 +39,7 @@ export default function SinglePost() {
   const price = post.price;
   const discountedPrice = isOnSale ? price * 0.5 : price;
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
+    <div className="bg-gray-100 min-h-screen p-4 relative">
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-3xl font-semibold mb-4">{post.shopName}</h1>
 
@@ -53,8 +58,9 @@ export default function SinglePost() {
           <div className="text-2xl font-semibold">
             {isOnSale ? (
               <div className="text-red-500">
+                {" "}
                 <del>{price.toFixed(2)}€</del> {discountedPrice.toFixed(2)}€{" "}
-                <span className="bg-red-500 text-white font-bold py-1 px-2 rounded-full  text-xs">
+                <span className="bg-red-500 text-white font-bold py-1 px-2 rounded-full text-xs">
                   ON SALE!
                 </span>
               </div>
@@ -67,9 +73,8 @@ export default function SinglePost() {
           </button>
         </div>
       </div>
-
-      <div className="max-w-6xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Comments</h2>
+      <div className="max-w-6xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-md z-10">
+        <CommentForm postId={post.id} onAddComment={handleAddComment} />
       </div>
     </div>
   );
