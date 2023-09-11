@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
+import GoogleLogin from "./GoogleLogin";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -35,6 +35,7 @@ export default function LoginForm() {
         toast.success("Login successful, welcome:" + email);
 
         navigate("/shops", { replace: true });
+        console.log("Gauti duomenis:" + email, password);
       } catch (error) {
         toast.error("Login failed, check email or password");
         const errorCode = error.code;
@@ -100,12 +101,13 @@ export default function LoginForm() {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
             Login
           </button>
         </div>
       </form>
+      <GoogleLogin />
     </div>
   );
 }

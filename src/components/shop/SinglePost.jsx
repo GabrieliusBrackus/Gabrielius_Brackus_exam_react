@@ -13,6 +13,7 @@ export default function SinglePost() {
   const handleAddComment = (comment) => {
     setComments([...comments, comment]);
   };
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -39,6 +40,7 @@ export default function SinglePost() {
   const isOnSale = post.saleOnSale;
   const price = post.price;
   const discountedPrice = isOnSale ? price * 0.5 : price;
+  console.log(post);
   return (
     <div className="bg-gray-100 min-h-screen p-4 relative">
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md">

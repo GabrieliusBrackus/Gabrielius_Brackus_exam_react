@@ -16,13 +16,12 @@ export default function ShopPage() {
         const querySnapshot = await getDocs(q);
 
         const items = [];
-
+        console.log(items);
         querySnapshot.forEach((doc) => {
           const itemData = {
             id: doc.id,
             ...doc.data(),
           };
-
           items.push(itemData);
         });
 

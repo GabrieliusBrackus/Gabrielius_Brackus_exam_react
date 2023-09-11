@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import GoogleLogin from "./GoogleLogin";
 
 export default function RegistrationForm() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ export default function RegistrationForm() {
         );
 
         toast.success("Registration successful, welcome:" + email);
-
+        console.log("Gauti duomenis:" + email, password);
         navigate("/login", { replace: true });
       } catch (error) {
         toast.error("Registration failed, please try again");
@@ -127,12 +128,13 @@ export default function RegistrationForm() {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
             Register
           </button>
         </div>
       </form>
+      <GoogleLogin />
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default function CommentForm({ postId, onAddComment }) {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        const userData = user ? { email: user.email } : { anonymous: true };
+        const userData = user ? { email: user.email } : {};
         const commentData = {
           ...userData,
           text: values.text,
@@ -22,6 +22,7 @@ export default function CommentForm({ postId, onAddComment }) {
         const commentsCollection = collection(db, "shops", postId, "comments");
         await addDoc(commentsCollection, commentData);
 
+        console.log("Gauti komentaro duomenys:", commentData);
         onAddComment(commentData);
 
         resetForm();

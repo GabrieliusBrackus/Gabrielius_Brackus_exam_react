@@ -44,7 +44,7 @@ export default function CommentList({ postId }) {
 
     return () => unsubscribe();
   }, [postId]);
-
+  console.log(comments);
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-semibold mb-4">Customer Comments:</h2>
