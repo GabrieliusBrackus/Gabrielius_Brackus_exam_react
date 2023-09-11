@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import CommentForm from "./comments/CommentForm";
+import CommentList from "./comments/CommentList";
 
 export default function SinglePost() {
   const { itemId } = useParams();
@@ -73,8 +74,9 @@ export default function SinglePost() {
           </button>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-md z-10">
-        <CommentForm postId={post.id} onAddComment={handleAddComment} />
+      <div className="max-w-6xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-md z-10 mb-20">
+        <CommentForm postId={itemId} onAddComment={handleAddComment} />
+        <CommentList postId={itemId} />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useAuth } from "../../../store/AuthProvider";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 
-function CommentForm({ postId, onAddComment }) {
+export default function CommentForm({ postId, onAddComment }) {
   const { user } = useAuth();
   const formik = useFormik({
     initialValues: {
@@ -55,5 +55,3 @@ function CommentForm({ postId, onAddComment }) {
     </div>
   );
 }
-
-export default CommentForm;
