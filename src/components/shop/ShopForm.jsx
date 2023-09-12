@@ -45,7 +45,9 @@ export default function ShopForm() {
     description: Yup.string()
       .min(6, "Description must be at least 6 characters")
       .required("Description is required"),
-    imageUrl: Yup.string().min(5, "Image URL must be at least 5 characters"),
+    imageUrl: Yup.string()
+      .min(5, "Image URL must be at least 5 characters")
+      .required("Image URL is required"),
     price: Yup.number()
       .min(0, "Price cannot be negative")
       .required("Price is required"),
