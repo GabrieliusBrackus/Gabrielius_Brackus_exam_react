@@ -1,7 +1,7 @@
 import React from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function SingleItem(props) {
@@ -25,7 +25,7 @@ export default function SingleItem(props) {
   return (
     <li
       className={`border p-4 ${
-        item.userUid === currentUserUid ? "bg-yellow-100" : ""
+        item.userUid === currentUserUid ? "bg-green-200" : ""
       }`}
     >
       <div>
